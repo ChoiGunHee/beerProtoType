@@ -1,4 +1,4 @@
-package beer.dku.com.beerprototype;
+package beer.dku.com.beerprototype.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import beer.dku.com.beerprototype.R;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textview);
 
 
-    }
 
+    }
     public void send(View view) {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://jejusien.herokuapp.com/dbcrud/get?beername=test1", new AsyncHttpResponseHandler() {
