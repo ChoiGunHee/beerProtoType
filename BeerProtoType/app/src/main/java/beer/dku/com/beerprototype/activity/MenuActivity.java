@@ -17,7 +17,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        Intent loginIntent = new Intent(this, BeerInfoActivity.class);
+        Intent loginIntent = new Intent(this, MainActivity.class);
         startActivity(loginIntent);
         finish();
     }

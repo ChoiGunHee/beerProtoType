@@ -1,42 +1,33 @@
-package beer.dku.com.beerprototype.activity;
+package beer.dku.com.beerprototype.material;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.http.*;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import beer.dku.com.beerprototype.R;
-import beer.dku.com.beerprototype.material.SampleActivity;
-import beer.dku.com.beerprototype.material.SlidingTabLayout;
-import beer.dku.com.beerprototype.material.ViewPagerAdapter;
-import cz.msebera.android.httpclient.Header;
 
-public class MainActivity extends AppCompatActivity {
+
+public class SampleActivity extends ActionBarActivity {
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
 
     private ListView mDrawerList;
     ViewPager pager;
-    private String[] titles = new String[]{"Sample Tab 1", "Sample Tab 2", "Sample Tab 3", "Sample Tab 4"};
+    private String[] titles = new String[]{"Sample Tab 1", "Sample Tab 2", "Sample Tab 3", "Sample Tab 4"
+            , "Sample Tab 5", "Sample Tab 6", "Sample Tab 7", "Sample Tab 8"};
     private Toolbar toolbar;
 
     SlidingTabLayout slidingTabLayout;
@@ -44,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sample);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.navdrawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 return Color.WHITE;
             }
         });
-
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
         String[] values = new String[]{
@@ -78,8 +69,11 @@ public class MainActivity extends AppCompatActivity {
                                     int position, long id) {
                 switch (position) {
                     case 0:
+                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                        toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                         mDrawerLayout.closeDrawer(Gravity.START);
-                        Toast.makeText(MainActivity.this, "wow", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SampleActivity.this, "wow", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
@@ -123,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

@@ -11,14 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".material.SampleActivity" />
         <activity android:name=".activity.MenuActivity">
+        </activity>
+        <activity android:name=".activity.BeerInfoActivity" />
+        <activity android:name=".activity.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.BeerInfoActivity"></activity>
     </application>
 
 </manifest>
