@@ -1,8 +1,10 @@
 package beer.dku.com.beerprototype.activity;
 
+import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.support.v4.view.ViewPager;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,33 +15,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.loopj.android.http.*;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import beer.dku.com.beerprototype.R;
-import beer.dku.com.beerprototype.material.SampleActivity;
-import beer.dku.com.beerprototype.material.SlidingTabLayout;
-import beer.dku.com.beerprototype.material.ViewPagerAdapter;
-import cz.msebera.android.httpclient.Header;
+import beer.dku.com.beerprototype.fragment.BeerListFragment;
+import beer.dku.com.beerprototype.fragment.FavoritListFragment;
+import beer.dku.com.beerprototype.fragment.HomeFragment;
+import beer.dku.com.beerprototype.fragment.MyInfoFragment;
+import beer.dku.com.beerprototype.fragment.SearchFragment;
+import beer.dku.com.beerprototype.fragment.ShopFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements  BeerListFragment.OnFragmentInteractionListener,
+                SearchFragment.OnFragmentInteractionListener,
+                ShopFragment.OnFragmentInteractionListener {
+
+    public static final String HOME_FLAG = "HOME";
+    public static final String MYINFO_FLAG = "MYINFO";
+    public static final String FAVORITELIST_FLAG = "FAVORITLIST";
+    public static final String BEERLIST_FLAG = "BEERLIST";
+    public static final String SEARCH_FLAG = "SEARCH";
+    public static final String SHOP_FLAG = "SHOP";
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-
     private ListView mDrawerList;
-    ViewPager pager;
-    private String[] titles = new String[]{"Sample Tab 1", "Sample Tab 2", "Sample Tab 3", "Sample Tab 4"};
     private Toolbar toolbar;
 
-    SlidingTabLayout slidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,60 +54,89 @@ public class MainActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
             toolbar.setNavigationIcon(R.drawable.ic_ab_drawer);
         }
-        pager = (ViewPager) findViewById(R.id.viewpager);
-        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-        pager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), titles));
-
-        slidingTabLayout.setViewPager(pager);
-        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return Color.WHITE;
-            }
-        });
 
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
         String[] values = new String[]{
-                "DEFAULT", "RED", "BLUE", "MATERIAL GREY"
+                "HOME", "나의 정보", "나의 맥주리스트", "맥주리스트", "맥주검색", "제주지앵 매장안내"
         };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         mDrawerList.setAdapter(adapter);
+
+        mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+        //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
+
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 switch (position) {
                     case 0:
-                        mDrawerLayout.closeDrawer(Gravity.START);
-                        Toast.makeText(MainActivity.this, "wow", Toast.LENGTH_SHORT).show();
+                        switchFragment(HOME_FLAG);
                         break;
                     case 1:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.red));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
-                        mDrawerLayout.closeDrawer(Gravity.START);
-
+                        switchFragment(MYINFO_FLAG);
                         break;
                     case 2:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.blue));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.blue));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.blue));
-                        mDrawerLayout.closeDrawer(Gravity.START);
-
+                        switchFragment(FAVORITELIST_FLAG);
                         break;
                     case 3:
-                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                        mDrawerLayout.closeDrawer(Gravity.START);
-
+                        switchFragment(BEERLIST_FLAG);
+                        break;
+                    case 4:
+                        switchFragment(SEARCH_FLAG);
+                        break;
+                    case 5:
+                        switchFragment(SHOP_FLAG);
                         break;
                 }
+                mDrawerLayout.closeDrawer(Gravity.START);
 
             }
         });
+
+        switchFragment(HOME_FLAG);
+    }
+
+    public void switchFragment(String flag) {
+        Fragment fragment;
+
+        switch (flag) {
+            case HOME_FLAG :
+                fragment = HomeFragment.newInstance(HOME_FLAG, HOME_FLAG);
+                break;
+
+            case MYINFO_FLAG :
+                fragment = MyInfoFragment.newInstance(MYINFO_FLAG, MYINFO_FLAG);
+                break;
+
+            case FAVORITELIST_FLAG :
+                fragment = FavoritListFragment.newInstance(FAVORITELIST_FLAG, FAVORITELIST_FLAG);
+                break;
+
+            case BEERLIST_FLAG :
+                fragment = BeerListFragment.newInstance(BEERLIST_FLAG, BEERLIST_FLAG);
+                break;
+
+            case SEARCH_FLAG :
+                fragment = SearchFragment.newInstance(SEARCH_FLAG, SEARCH_FLAG);
+                break;
+
+            case SHOP_FLAG :
+                fragment = ShopFragment.newInstance(SHOP_FLAG, SHOP_FLAG);
+                break;
+
+            default :
+                fragment = HomeFragment.newInstance(HOME_FLAG, HOME_FLAG);
+                break;
+        }
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.content_frame, fragment);
+        transaction.commit();
+
     }
 
     @Override
@@ -134,6 +165,11 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
 }

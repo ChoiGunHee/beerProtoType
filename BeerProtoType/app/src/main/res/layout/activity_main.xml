@@ -16,20 +16,11 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimaryDark" />
 
-        <beer.dku.com.beerprototype.material.SlidingTabLayout
-            android:id="@+id/sliding_tabs"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+            android:layout_height="match_parent"
+            android:id="@+id/content_frame"/>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:background="@android:color/white" />
     </LinearLayout>
 
     <ListView

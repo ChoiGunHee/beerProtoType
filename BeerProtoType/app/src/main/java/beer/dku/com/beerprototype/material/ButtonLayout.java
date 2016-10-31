@@ -32,7 +32,6 @@ public abstract class ButtonLayout extends RelativeLayout {
     OnClickListener onClickListener;
     int backgroundColor = Color.parseColor("#1E88E5");
 
-
     // ### RIPPLE EFFECT ###
     float x = -1, y = -1;
     float radius = -1;
