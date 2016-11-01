@@ -1,15 +1,20 @@
 package beer.dku.com.beerprototype.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import beer.dku.com.beerprototype.R;
+import beer.dku.com.beerprototype.adapter.BeerListViewPagerAdapter;
+import beer.dku.com.beerprototype.adapter.SearchViewPagerAdapter;
+import beer.dku.com.beerprototype.material.SlidingTabLayout;
 
 public class SearchFragment extends Fragment {
 
@@ -20,6 +25,11 @@ public class SearchFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    ViewPager pager;
+    private String[] titles = new String[]{"이름 검색", "이미지 검색"};
+
+    SlidingTabLayout slidingTabLayout;
 
     private AppCompatActivity mContext;
 
@@ -48,8 +58,21 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        pager = (ViewPager) view.findViewById(R.id.viewpager);
+        slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
+        pager.setAdapter(new SearchViewPagerAdapter(mContext.getSupportFragmentManager(), titles));
+
+        slidingTabLayout.setViewPager(pager);
+        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return Color.WHITE;
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

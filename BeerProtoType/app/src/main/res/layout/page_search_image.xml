@@ -1,0 +1,40 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="beer.dku.com.beerprototype.page.SearchImagePage">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/pilsnerurquell"
+            android:adjustViewBounds="true"
+            android:maxHeight="300dp"
+            android:minWidth="300dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/imageView_search" />
+
+        <Button
+            android:text="사진찍기"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cameraBtn" />
+
+        <Button
+            android:text="검색"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgSearchBtn" />
+
+
+    </LinearLayout>
+</FrameLayout>

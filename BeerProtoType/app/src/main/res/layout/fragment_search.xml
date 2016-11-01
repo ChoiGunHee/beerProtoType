@@ -1,13 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="beer.dku.com.beerprototype.fragment.SearchFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="맥주검색" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <beer.dku.com.beerprototype.material.SlidingTabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimaryDark"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
