@@ -5,30 +5,83 @@
     android:id="@+id/activity_beer_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="#ffffff"
     tools:context="beer.dku.com.beerprototype.activity.BeerInfoActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red">
+
+        <TextView
+            android:text="TextView"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:background="@color/red"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/beerNameTextview"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_star_border_black_18dp"
+            android:id="@+id/imageView2"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:maxHeight="50dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:maxHeight="250dp"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/pilsnerurquell"
+        android:id="@+id/imageView" />
 
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:textAlignment="center"
+        android:background="@color/red"
+        android:textSize="40dp"
         android:id="@+id/textView" />
 
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
-        android:scaleType="fitXY"
-        android:layout_weight="1"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/pilsnerurquell"
-        android:id="@+id/imageView" />
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:background="@color/red"
+        android:id="@+id/textView2" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RatingBar
+            android:theme="@style/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5"
+            style="?android:attr/ratingBarStyle"
+            android:id="@+id/ratingBar_beerInfo"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 
 </LinearLayout>

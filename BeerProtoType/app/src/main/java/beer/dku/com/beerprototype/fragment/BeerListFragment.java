@@ -61,8 +61,8 @@ public class BeerListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_beer_list, container, false);
 
-        pager = (ViewPager) view.findViewById(R.id.viewpager);
-        slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
+        pager = (ViewPager) view.findViewById(R.id.viewpager_beerlist);
+        slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs_beerlist);
         pager.setAdapter(new BeerListViewPagerAdapter(mContext.getSupportFragmentManager(), titles));
 
         slidingTabLayout.setViewPager(pager);
