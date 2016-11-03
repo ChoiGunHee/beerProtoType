@@ -65,4 +65,5 @@
         android:layout_height="wrap_content"
         android:onClick="signup"
         android:id="@+id/signupBtn" />
+
 </LinearLayout>

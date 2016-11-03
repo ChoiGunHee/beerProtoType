@@ -65,6 +65,8 @@ public class SearchFragment extends Fragment {
         slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs_search);
         pager.setAdapter(new SearchViewPagerAdapter(mContext.getSupportFragmentManager(), titles));
 
+        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
+        
         slidingTabLayout.setViewPager(pager);
         slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override

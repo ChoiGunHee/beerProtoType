@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light"
     tools:context="beer.dku.com.beerprototype.fragment.MyInfoFragment">
 
     <LinearLayout
@@ -12,19 +13,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MY INFO Framnet" />
+            android:textColor="@color/grey"
+            android:layout_margin="5dp"
+            android:text="내가 맥주 성향" />
 
-        <Button
-            android:text="Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button2" />
-
-        <Button
-            android:text="Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button3" />
 
         <org.eazegraph.lib.charts.BarChart
             xmlns:app="http://schemas.android.com/apk/res-auto"

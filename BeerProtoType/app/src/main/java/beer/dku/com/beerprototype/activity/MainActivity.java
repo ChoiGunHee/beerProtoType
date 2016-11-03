@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
         String[] values = new String[]{
-                "HOME", "나의 정보", "나의 맥주리스트", "맥주리스트", "맥주검색", "제주지앵 매장안내"
+                "HOME", "내 정보", "위시 리스트", "맥주리스트", "맥주검색", "제주지앵 매장안내"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
         mDrawerList.setAdapter(adapter);
@@ -74,21 +74,27 @@ public class MainActivity extends AppCompatActivity
                 switch (position) {
                     case 0:
                         switchFragment(HOME_FLAG);
+                        toolbar.setTitle("HOME");
                         break;
                     case 1:
                         switchFragment(MYINFO_FLAG);
+                        toolbar.setTitle("내 정보");
                         break;
                     case 2:
                         switchFragment(FAVORITELIST_FLAG);
+                        toolbar.setTitle("위시리스트");
                         break;
                     case 3:
                         switchFragment(BEERLIST_FLAG);
+                        toolbar.setTitle("맥주 리스트");
                         break;
                     case 4:
                         switchFragment(SEARCH_FLAG);
+                        toolbar.setTitle("맥주 검색");
                         break;
                     case 5:
                         switchFragment(SHOP_FLAG);
+                        toolbar.setTitle("매장안내");
                         break;
                 }
                 mDrawerLayout.closeDrawer(Gravity.START);

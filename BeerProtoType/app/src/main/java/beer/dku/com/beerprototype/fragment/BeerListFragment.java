@@ -65,6 +65,8 @@ public class BeerListFragment extends Fragment {
         slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs_beerlist);
         pager.setAdapter(new BeerListViewPagerAdapter(mContext.getSupportFragmentManager(), titles));
 
+        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
+
         slidingTabLayout.setViewPager(pager);
         slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override

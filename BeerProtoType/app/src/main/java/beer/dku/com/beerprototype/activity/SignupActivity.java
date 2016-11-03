@@ -1,5 +1,9 @@
 package beer.dku.com.beerprototype.activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +16,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import beer.dku.com.beerprototype.R;
+import beer.dku.com.beerprototype.asynctasks.SighUpTask;
+import beer.dku.com.beerprototype.servercommunication.ProxyObject;
 import cz.msebera.android.httpclient.Header;
 
 public class SignupActivity extends AppCompatActivity {
@@ -19,6 +25,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText nameEdt;
     private EditText emailEdt;
     private EditText passEdt;
+    private ProgressDialog mDlg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +38,35 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void sendSignUp(View view) {
-        AsyncHttpClient client = new AsyncHttpClient();
         String name = nameEdt.getText().toString();
         String email = emailEdt.getText().toString();
         String password = passEdt.getText().toString();
-        RequestParams params = new RequestParams();
-        params.put("username", name);
-        params.put("email", email);
-        params.put("password", password);
 
-        client.post("http://jejusien.herokuapp.com/users/regist", params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String responsString = new String(responseBody);
-            }
+        mDlg = new ProgressDialog(this);
+        mDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mDlg.setMessage("로그인 중 입니다.");
+        mDlg.show();
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                String responsString = new String(responseBody);
-            }
-        });
+        SighUpTask task = new SighUpTask(handler, name, email, password);
+        task.start();
     }
 
     public void cancel(View view) {
         finish();
     }
+
+    final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Bundle bundle = msg.getData();
+            boolean result = bundle.getBoolean("result");
+            mDlg.dismiss();
+            if (result) {
+                Toast.makeText(SignupActivity.this, "로그인 해주세요.", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(SignupActivity.this, "죄송합니다. 입력부분을 확인해주세요.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }

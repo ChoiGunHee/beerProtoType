@@ -51,23 +51,13 @@ public class MyInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_info, container, false);
 
-        Button button = (Button) view.findViewById(R.id.button3);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mContext.switchFragment(MainActivity.HOME_FLAG);
-            }
-        });
         BarChart mBarChart = (BarChart) view.findViewById(R.id.barchart);
 
-        mBarChart.addBar(new BarModel(2.3f, 0xFF123456));
-        mBarChart.addBar(new BarModel(2.f,  0xFF343456));
-        mBarChart.addBar(new BarModel(3.3f, 0xFF563456));
-        mBarChart.addBar(new BarModel(1.1f, 0xFF873F56));
-        mBarChart.addBar(new BarModel(2.7f, 0xFF56B7F1));
-        mBarChart.addBar(new BarModel(2.f,  0xFF343456));
-        mBarChart.addBar(new BarModel(0.4f, 0xFF1FF4AC));
-        mBarChart.addBar(new BarModel(4.f,  0xFF1BA4E6));
+        mBarChart.addBar(new BarModel("라거", 10.0f, 0xFFF7FE2E));
+        mBarChart.addBar(new BarModel("에일", 8.0f, 0xFFDBA901));
+        mBarChart.addBar(new BarModel("IPA", 3.0f,  0xFFB43104));
+        mBarChart.addBar(new BarModel("흑맥주", 1.0f, 0xFF3B0B0B));
+        mBarChart.addBar(new BarModel("기타", 5.0f, 0xFFD8D8D8));
 
         mBarChart.startAnimation();
 

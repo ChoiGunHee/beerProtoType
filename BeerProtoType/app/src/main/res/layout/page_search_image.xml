@@ -3,38 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/ripple_red"
     tools:context="beer.dku.com.beerprototype.page.SearchImagePage">
-
 
     <LinearLayout
         android:orientation="vertical"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pilsnerurquell"
+            android:layout_margin="5dp"
+            android:background="@color/light"
+            app:srcCompat="@drawable/ic_add_to_photos_black_48dp"
             android:adjustViewBounds="true"
             android:maxHeight="300dp"
             android:minWidth="300dp"
-            android:scaleType="fitCenter"
+            android:scaleType="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:id="@+id/imageView_search" />
 
-        <Button
-            android:text="사진찍기"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/cameraBtn" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:text="검색"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgSearchBtn" />
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                app:srcCompat="@drawable/ic_add_a_photo_white_48dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:id="@+id/cameraBtn" />
 
-
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:layout_margin="5dp"
+                app:srcCompat="@drawable/ic_search_white_48dp"
+                android:layout_weight="1"
+                android:id="@+id/imgSearchBtn" />
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

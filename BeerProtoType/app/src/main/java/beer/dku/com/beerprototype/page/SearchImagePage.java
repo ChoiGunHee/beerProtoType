@@ -1,38 +1,30 @@
 package beer.dku.com.beerprototype.page;
 
-import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import beer.dku.com.beerprototype.R;
-import cz.msebera.android.httpclient.Header;
+import beer.dku.com.beerprototype.asynctasks.ImageSearchTask;
 
 public class SearchImagePage extends Fragment
     implements View.OnClickListener {
@@ -51,9 +43,11 @@ public class SearchImagePage extends Fragment
     private int position;
     private AppCompatActivity mContext;
     private ImageView imageView;
-    private Button searchBtn;
-    private Button camaraBtn;
+    private ImageButton searchBtn;
+    private ImageButton camaraBtn;
     private Uri imageURI;
+
+    private ProgressDialog mDlg;
 
     public SearchImagePage() {
         // Required empty public constructor
@@ -85,9 +79,10 @@ public class SearchImagePage extends Fragment
 
         imageView = (ImageView) view.findViewById(R.id.imageView_search);
         imageView.setOnClickListener(this);
-        searchBtn = (Button) view.findViewById(R.id.imgSearchBtn);
+        searchBtn = (ImageButton) view.findViewById(R.id.imgSearchBtn);
         searchBtn.setOnClickListener(this);
-        camaraBtn = (Button) view.findViewById(R.id.cameraBtn);
+        searchBtn.setEnabled(false);
+        camaraBtn = (ImageButton) view.findViewById(R.id.cameraBtn);
         camaraBtn.setOnClickListener(this);
 
         return view;
@@ -116,34 +111,17 @@ public class SearchImagePage extends Fragment
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, TACK_CAMERA);
         } else if(searchBtn.equals(v)) {
+            mDlg = new ProgressDialog(mContext);
+            mDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mDlg.setMessage("로그인 중 입니다.");
+            mDlg.show();
 
+            Log.d("beer1111",getRealImagePath(imageURI));
+            String imgName = getRealImagePath(imageURI).split("/")[6];
+            Log.d("beer1111",imgName);
+            ImageSearchTask task = new ImageSearchTask(handler, getRealImagePath(imageURI), imgName);
+            task.start();
 
-            Log.d("beer111111111111111", getRealImagePath(imageURI));
-
-            final File file = new File(getRealImagePath(imageURI));
-            String result = null;
-
-            AsyncHttpClient client = new AsyncHttpClient();
-            RequestParams params = new RequestParams();
-            try {
-                params.put("file", file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            client.post("http://jejusien.herokuapp.com/fileupload/put", params, new AsyncHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        String result = new String(responseBody);
-                        Log.d("beer", result);
-                        Toast.makeText(mContext.getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    String result = new String(responseBody);
-                    Log.d("beer", result);
-                }
-            });
         }
     }
 
@@ -157,6 +135,7 @@ public class SearchImagePage extends Fragment
                     imageURI = data.getData();
                     Bitmap image = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), data.getData());
                     imageView.setImageBitmap(image);
+                    searchBtn.setEnabled(true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -166,6 +145,7 @@ public class SearchImagePage extends Fragment
             if(resultCode == Activity.RESULT_OK) {
                 imageURI = data.getData();
                 imageView.setImageURI(imageURI);
+                searchBtn.setEnabled(true);
             }
         }
     }
@@ -180,4 +160,18 @@ public class SearchImagePage extends Fragment
         String imgPath = cursor.getString(column_index);
         return imgPath;
     }
+
+    final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Bundle bundle = msg.getData();
+            String result = bundle.getString("result");
+            mDlg.dismiss();
+            if (result != null) {
+                Toast.makeText(mContext, "이미지를 찾았습니다. " + result, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mContext, "이미지를 못 찾았습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }
