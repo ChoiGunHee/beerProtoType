@@ -33,7 +33,6 @@ public class MenuActivity extends AppCompatActivity {
     private EditText passwordEdt;
     private String jauth;
     private String name;
-    private Toast successToast;
     private Toast failureToast;
 
     @Override
@@ -44,7 +43,6 @@ public class MenuActivity extends AppCompatActivity {
         emailEdt = (EditText) findViewById(R.id.email_EditText);
         passwordEdt = (EditText) findViewById(R.id.pw_EditText);
 
-        successToast = Toast.makeText(this, "안녕하세요.", Toast.LENGTH_SHORT);
         failureToast = Toast.makeText(this, "다시 한번 확인해주세요.", Toast.LENGTH_SHORT);
 
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -86,7 +84,7 @@ public class MenuActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", password);
 
-        client.post("http://192.168.0.28:5000/users/login", params, new AsyncHttpResponseHandler() {
+        client.post("http://jejusien.herokuapp.com/users/login", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String responseString = new String(responseBody);

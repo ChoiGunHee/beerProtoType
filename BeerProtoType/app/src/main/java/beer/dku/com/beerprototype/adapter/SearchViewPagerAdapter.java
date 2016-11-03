@@ -3,6 +3,7 @@ package beer.dku.com.beerprototype.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import beer.dku.com.beerprototype.page.SearchImagePage;
 import beer.dku.com.beerprototype.page.SearchStringPage;
@@ -11,7 +12,7 @@ import beer.dku.com.beerprototype.page.SearchStringPage;
  * Created by ChoGunHee on 2016-11-02.
  */
 
-public class SearchViewPagerAdapter extends FragmentPagerAdapter {
+public class SearchViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private int page_count;
     private String[] titles;

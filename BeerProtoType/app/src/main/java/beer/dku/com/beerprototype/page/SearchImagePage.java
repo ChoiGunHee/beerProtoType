@@ -123,7 +123,6 @@ public class SearchImagePage extends Fragment
             final File file = new File(getRealImagePath(imageURI));
             String result = null;
 
-            //http://jejusien.herokuapp.com/fileupload/put
             AsyncHttpClient client = new AsyncHttpClient();
             RequestParams params = new RequestParams();
             try {
@@ -131,7 +130,7 @@ public class SearchImagePage extends Fragment
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            client.post("http://192.168.0.28:5000/fileupload/put", params, new AsyncHttpResponseHandler() {
+            client.post("http://jejusien.herokuapp.com/fileupload/put", params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         String result = new String(responseBody);

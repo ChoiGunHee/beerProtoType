@@ -4,6 +4,7 @@ package beer.dku.com.beerprototype.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import beer.dku.com.beerprototype.page.BeerListPage;
 
@@ -11,7 +12,7 @@ import beer.dku.com.beerprototype.page.BeerListPage;
  * Created by ChoiGunHee on 2016-11-01.
  */
 
-public class BeerListViewPagerAdapter extends FragmentPagerAdapter {
+public class BeerListViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private int page_count;
     private String[] titles;

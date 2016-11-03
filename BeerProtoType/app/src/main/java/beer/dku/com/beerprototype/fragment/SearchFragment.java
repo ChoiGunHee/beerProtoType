@@ -39,6 +39,7 @@ public class SearchFragment extends Fragment {
 
     public static SearchFragment newInstance(String param1, String param2) {
         SearchFragment fragment = new SearchFragment();
+
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,8 +61,8 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        pager = (ViewPager) view.findViewById(R.id.viewpager);
-        slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
+        pager = (ViewPager) view.findViewById(R.id.viewpager_search);
+        slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs_search);
         pager.setAdapter(new SearchViewPagerAdapter(mContext.getSupportFragmentManager(), titles));
 
         slidingTabLayout.setViewPager(pager);
