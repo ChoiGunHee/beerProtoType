@@ -1,5 +1,7 @@
 package beer.dku.com.beerprototype.customview;
 
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
@@ -7,67 +9,63 @@ import android.widget.TextView;
  */
 
 public class BeerInfoHolder {
-    private TextView beerNameView;
-    private TextView countryView;
-    private TextView degreeView;
-    private TextView img_url_View;
-    private TextView categoryView;
-    private TextView evaluationView;
-    private TextView descriptionView;
+    private ImageView beerImgView;
+    private ImageView favoriteImgView;
+    private TextView korNameView;
+    private TextView engNameView;
+    private TextView styleNameView;
+    private TextView priceNameView;
+    private TextView abvNameView;
+    private TextView ratingView;
 
-    public TextView getBeerNameView() {
-        return beerNameView;
+    public BeerInfoHolder(ImageView beerImgView,
+                          ImageView favoriteImgView,
+                          TextView korNameView,
+                          TextView engNameView,
+                          TextView styleNameView,
+                          TextView priceNameView,
+                          TextView abvNameView,
+                          TextView ratingView) {
+        this.beerImgView = beerImgView;
+        this.favoriteImgView = favoriteImgView;
+        this.engNameView = engNameView;
+        this.korNameView = korNameView;
+        this.styleNameView = styleNameView;
+        this.priceNameView = priceNameView;
+        this.abvNameView = abvNameView;
+        this.ratingView = ratingView;
     }
 
-    public void setBeerNameView(TextView beerNameView) {
-        this.beerNameView = beerNameView;
+    public TextView getRatingView() {
+        return ratingView;
     }
 
-    public TextView getCountryView() {
-        return countryView;
+    public TextView getAbvNameView() {
+        return abvNameView;
     }
 
-    public void setCountryView(TextView countryView) {
-        this.countryView = countryView;
+    public ImageView getBeerImgView() {
+        return beerImgView;
     }
 
-    public TextView getDegreeView() {
-        return degreeView;
+    public ImageView getFavoriteImgView() {
+        return favoriteImgView;
     }
 
-    public void setDegreeView(TextView degreeView) {
-        this.degreeView = degreeView;
+    public TextView getEngNameView() {
+        return engNameView;
     }
 
-    public TextView getImg_url_View() {
-        return img_url_View;
+    public TextView getKorNameView() {
+        return korNameView;
     }
 
-    public void setImg_url_View(TextView img_url_View) {
-        this.img_url_View = img_url_View;
+    public TextView getStyleNameView() {
+        return styleNameView;
     }
 
-    public TextView getCategoryView() {
-        return categoryView;
+    public TextView getPriceNameView() {
+        return priceNameView;
     }
 
-    public void setCategoryView(TextView categoryView) {
-        this.categoryView = categoryView;
-    }
-
-    public TextView getEvaluationView() {
-        return evaluationView;
-    }
-
-    public void setEvaluationView(TextView evaluationView) {
-        this.evaluationView = evaluationView;
-    }
-
-    public TextView getDescriptionView() {
-        return descriptionView;
-    }
-
-    public void setDescriptionView(TextView descriptionView) {
-        this.descriptionView = descriptionView;
-    }
 }

@@ -11,13 +11,21 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import beer.dku.com.beerprototype.R;
+import java.util.ArrayList;
+
+import beer.dku.com.beerprototype.asynctasks.BeerDataRequestTask;
 import beer.dku.com.beerprototype.asynctasks.LoginTask;
+import beer.dku.com.beerprototype.dao.BeerInfo;
+import beer.dku.com.beerprototype.database.DatabaseSource;
 import beer.dku.com.beerprototype.servercommunication.ProxyObject;
+
+import beer.dku.com.beerprototype.R;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -33,6 +41,12 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+
+        /*
+        testImg = (ImageView) findViewById(R.id.testImg);
+        int id = getResources().getIdentifier("beer.dku.com.beerprototype:drawable/" + "_7brauindiapaleale", null, null);
+        testImg.setImageDrawable(getResources().getDrawable(id, null));
+        */
         emailEdt = (EditText) findViewById(R.id.email_EditText);
         passwordEdt = (EditText) findViewById(R.id.pw_EditText);
 
@@ -48,6 +62,13 @@ public class MenuActivity extends AppCompatActivity {
         } else {
 
         }
+
+        initData();
+    }
+
+    private void initData() {
+        BeerDataRequestTask task = new BeerDataRequestTask(handler);
+        task.start();
     }
 
     @Override
@@ -86,17 +107,31 @@ public class MenuActivity extends AppCompatActivity {
     final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Bundle bundle = msg.getData();
-            boolean result = bundle.getBoolean("result");
-            mDlg.dismiss();
-            if (result) {
-                Toast.makeText(MenuActivity.this, "안녕하세요 " + ProxyObject.getInstance().getUserName() + "님", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(MenuActivity.this, "다시 한번 확인해주세요.", Toast.LENGTH_SHORT).show();
+            Bundle bundle;
+
+            switch (msg.what) {
+                case LoginTask.LOGIN_FLAG :
+                    bundle = msg.getData();
+                    boolean result = bundle.getBoolean("result");
+                    mDlg.dismiss();
+                    if (result) {
+                        Toast.makeText(MenuActivity.this, "안녕하세요 " + ProxyObject.getInstance().getUserName() + "님", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(MenuActivity.this, "다시 한번 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case BeerDataRequestTask.BEER_DATA_REQUEST :
+                    bundle = msg.getData();
+                    ArrayList beerInfos = bundle.getParcelableArrayList("beerInfos");
+                    DatabaseSource databaseSource = new DatabaseSource(MenuActivity.this, 1);
+                    databaseSource.insertBeerInfos(beerInfos);
+                    Log.d("beer1WWW", databaseSource.selectBeerInfos().toString());
+                    break;
             }
+
         }
     };
 }

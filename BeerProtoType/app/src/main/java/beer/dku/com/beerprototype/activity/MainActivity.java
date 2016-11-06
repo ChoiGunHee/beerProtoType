@@ -24,6 +24,7 @@ import beer.dku.com.beerprototype.fragment.HomeFragment;
 import beer.dku.com.beerprototype.fragment.MyInfoFragment;
 import beer.dku.com.beerprototype.fragment.SearchFragment;
 import beer.dku.com.beerprototype.fragment.ShopFragment;
+import beer.dku.com.beerprototype.page.SearchStringPage;
 
 public class MainActivity extends AppCompatActivity
     implements  BeerListFragment.OnFragmentInteractionListener,
@@ -109,31 +110,31 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment;
 
         switch (flag) {
-            case HOME_FLAG :
+            case HOME_FLAG:
                 fragment = HomeFragment.newInstance(HOME_FLAG, HOME_FLAG);
                 break;
 
-            case MYINFO_FLAG :
+            case MYINFO_FLAG:
                 fragment = MyInfoFragment.newInstance(MYINFO_FLAG, MYINFO_FLAG);
                 break;
 
-            case FAVORITELIST_FLAG :
+            case FAVORITELIST_FLAG:
                 fragment = FavoritListFragment.newInstance(FAVORITELIST_FLAG, FAVORITELIST_FLAG);
                 break;
 
-            case BEERLIST_FLAG :
+            case BEERLIST_FLAG:
                 fragment = BeerListFragment.newInstance(BEERLIST_FLAG, BEERLIST_FLAG);
                 break;
 
-            case SEARCH_FLAG :
+            case SEARCH_FLAG:
                 fragment = SearchFragment.newInstance(SEARCH_FLAG, SEARCH_FLAG);
                 break;
 
-            case SHOP_FLAG :
+            case SHOP_FLAG:
                 fragment = ShopFragment.newInstance(SHOP_FLAG, SHOP_FLAG);
                 break;
 
-            default :
+            default:
                 fragment = HomeFragment.newInstance(HOME_FLAG, HOME_FLAG);
                 break;
         }
@@ -177,5 +178,5 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
-
 }
+

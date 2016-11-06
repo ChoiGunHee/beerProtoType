@@ -12,6 +12,8 @@ import beer.dku.com.beerprototype.servercommunication.ProxyObject;
 
 public class LoginTask extends Thread {
 
+    public static final int LOGIN_FLAG = 1;
+
     private Handler handler;
     private String email;
     private String password;
@@ -29,6 +31,7 @@ public class LoginTask extends Thread {
         Bundle bundle = new Bundle();
         bundle.putBoolean("result", result);
         msg.setData(bundle);
+        msg.what = LOGIN_FLAG;
 
         handler.sendMessage(msg);
     }

@@ -1,5 +1,6 @@
 package beer.dku.com.beerprototype.page;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,9 @@ import java.util.ArrayList;
 
 import beer.dku.com.beerprototype.R;
 import beer.dku.com.beerprototype.activity.BeerInfoActivity;
+import beer.dku.com.beerprototype.customview.BeerInfoListViewAdapter;
+import beer.dku.com.beerprototype.dao.BeerInfo;
+import beer.dku.com.beerprototype.database.DatabaseSource;
 
 public class BeerListPage extends Fragment {
 
@@ -30,6 +34,12 @@ public class BeerListPage extends Fragment {
 
     private int position;
     private AppCompatActivity mContext;
+
+    public static final int RATINGRQUSTCODE = 1;
+    private ListView listView;
+    private DatabaseSource databaseSource;
+    private ArrayList<BeerInfo> list;
+    private BeerInfoListViewAdapter adapter;
 
     public BeerListPage() {
         // Required empty public constructor
@@ -60,42 +70,39 @@ public class BeerListPage extends Fragment {
         position = getArguments().getInt(ARG_POSITION);
         View view = inflater.inflate(R.layout.page_beer_list, container, false);
 
-        ListView listView = (ListView) view.findViewById(R.id.beerInfoListView);
+        listView = (ListView) view.findViewById(R.id.beerInfoListView);
+        databaseSource = new DatabaseSource(getContext(), 1);
+        list = databaseSource.selectBeerInfos_style(mParam2);
 
-        final ArrayList<String>  list = new ArrayList<>();
-
-        if(mParam2.equals("에일")) {
-            list.clear();
-            list.add("기네스");
-            list.add("런던프라이드");
-        } else if(mParam2.equals("라거")) {
-            list.clear();
-            list.add("카스");
-            list.add("필즈너우를켈");
-            list.add("클라우드");
-            list.add("하이네켄");
-            list.add("하이트");
-        } else {
-            list.clear();
-            for(int i=0; i<30; i++) {
-                list.add("Test");
-            }
-        }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(arrayAdapter);
+        adapter = new BeerInfoListViewAdapter(getContext(), list);
+        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getContext(), BeerInfoActivity.class);
-                intent.putExtra("NAME", list.get(i));
-                startActivity(intent);
+                Intent intent = new Intent(mContext, BeerInfoActivity.class);
+                Bundle data = new Bundle();
+                BeerInfo info = (BeerInfo) adapterView.getAdapter().getItem(i);
+                data.putSerializable("beerInfo", info);
+                intent.putExtra("beerInfo", data);
+                intent.putExtra("index", i);
+                startActivityForResult(intent, RATINGRQUSTCODE);
             }
         });
+
+        adapter.notifyDataSetChanged();
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == RATINGRQUSTCODE) {
+            if(requestCode == Activity.RESULT_OK) {
+                int index = data.getIntExtra("index", 0);
+
+            }
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

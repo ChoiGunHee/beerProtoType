@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light"
     tools:context="beer.dku.com.beerprototype.fragment.FavoritListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="페이버리트리스트" />
-
+        android:id="@+id/favoritList"/>
 </FrameLayout>

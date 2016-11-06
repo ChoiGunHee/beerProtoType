@@ -32,13 +32,14 @@ public class BeerInfoActivity_Test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer_info_test);
 
-        getBeerInfoData();
+        //getBeerInfoData();
 
         beerInfoListView = (ListView) findViewById(R.id.beerInfoListView);
         beerInfoListViewAdapter = new BeerInfoListViewAdapter(this, beerInfoArrayList);
         beerInfoListView.setAdapter(beerInfoListViewAdapter);
         beerInfoListViewAdapter.notifyDataSetChanged();
 
+        /*
         beerInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -47,11 +48,14 @@ public class BeerInfoActivity_Test extends AppCompatActivity {
             }
         });
 
-        beerInfoArrayList.add(new BeerInfo("fail", "fail", 1.1, "fail", "fail", "fail", "fail"));
-        beerInfoArrayList.add(new BeerInfo("fail", "fail", 1.1, "fail", "fail", "fail", "fail"));
+        */
+        //beerInfoArrayList.add(new BeerInfo("fail", "fail", 1.1, "fail", "fail", "fail", "fail"));
+        //beerInfoArrayList.add(new BeerInfo("fail", "fail", 1.1, "fail", "fail", "fail", "fail"));
     }
 
+    /*
     private void getBeerInfoData() {
+
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://jejusien.herokuapp.com/beer/get/all", new AsyncHttpResponseHandler() {
             @Override
@@ -86,4 +90,5 @@ public class BeerInfoActivity_Test extends AppCompatActivity {
             }
         });
     }
+    */
 }

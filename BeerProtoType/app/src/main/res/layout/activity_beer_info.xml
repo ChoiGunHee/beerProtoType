@@ -13,7 +13,9 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:background="@color/red">
+
 
         <TextView
             android:text="TextView"
@@ -26,14 +28,19 @@
             android:id="@+id/beerNameTextview"
             android:layout_weight="1" />
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_star_border_black_18dp"
+            app:srcCompat="@drawable/ic_favorite_white_36dp"
             android:id="@+id/imageView2"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:maxHeight="50dp"
+            android:maxHeight="40dp"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -45,7 +52,7 @@
         android:adjustViewBounds="true"
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/missimage"
-        android:id="@+id/imageView" />
+        android:id="@+id/beerInfoActivityImgView" />
 
     <TextView
         android:text="TextView"
@@ -54,7 +61,7 @@
         android:textAlignment="center"
         android:background="@color/red"
         android:textSize="40dp"
-        android:id="@+id/textView" />
+        android:id="@+id/krNameView" />
 
     <TextView
         android:text="TextView"
@@ -62,7 +69,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:background="@color/red"
-        android:id="@+id/textView2" />
+        android:id="@+id/enNameView" />
 
     <LinearLayout
         android:orientation="vertical"

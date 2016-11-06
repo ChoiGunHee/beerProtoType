@@ -2,75 +2,112 @@ package beer.dku.com.beerprototype.dao;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
+import beer.dku.com.beerprototype.database.DatabaseSource;
+
 /**
  * Created by ChoiGunHee on 2016-10-14.
  */
 
-public class BeerInfo {
-    public static final String BEERNAME = "beername";
-    public static final String COUNTRY = "country";
-    public static final String DEGREE = "degree";
-    public static final String IMG_URL = "img_url";
-    public static final String CATEGORY = "category";
-    public static final String EVALUATION = "evaluation";
-    public static final String DESCRIPTIONAL = "description";
+public class BeerInfo
+    implements Serializable {
+    public static final String BID          = "bid";
+    public static final String KRNAME       = "krname";
+    public static final String ENNAME       = "enname";
+    public static final String STYLE        = "style";
+    public static final String ABV          = "abv";
+    public static final String PRICE        = "price";
+    public static final String DESCRIPTION  = "description";
+    public static final String BEERIMG_URL  = "img_url";
+    public static final String BEER_RATING  = "beerraing";
 
-    private String beerName;
-    private String country;
-    private double degree;
-    private String img_url;
-    private String category;
-    private String evaluation;
-    private String descriptional;
+    private String bid;
+    private String krname;
+    private String enname;
+    private String style;
+    private String abv;
+    private String price;
+    private String description;
+    private String beerimg_url;
+    private int beerRating;
 
-    public BeerInfo(String beerName, String country, double degree, String img_url, String category, String evaluation, String descriptional) {
-        this.beerName = beerName;
-        this.country = country;
-        this.degree = degree;
-        this.img_url = img_url;
-        this.category = category;
-        this.evaluation = evaluation;
-        this.descriptional = descriptional;
+    public BeerInfo(String bid, String krname, String enname, String style, String abv, String price, String description, String beerimg_url, int beerRating) {
+        this.bid = bid;
+        this.krname = krname;
+        this.enname = enname;
+        this.style = style;
+        this.abv = abv;
+        this.price = price;
+        this.description = description;
+        this.beerimg_url = beerimg_url;
+        this.beerRating = beerRating;
+
+    }
+
+    public BeerInfo(String bid, String krname, String enname, String style, String abv, String price, String description, String beerimg_url) {
+        this.bid = bid;
+        this.krname = krname;
+        this.enname = enname;
+        this.style = style;
+        this.abv = abv;
+        this.price = price;
+        this.description = description;
+        this.beerimg_url = beerimg_url;
+        this.beerRating = 0;
+    }
+
+    public BeerInfo(JSONObject object) {
+
+    }
+
+    public int getBeerRating() {
+        return beerRating;
+    }
+
+    public String getBID() {
+        return bid;
+    }
+
+    public String getKrname() {
+        return krname;
+    }
+
+    public String getEnname() {
+        return enname;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public String getAbv() {
+        return abv;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getBeerimg_url() {
+        return beerimg_url;
     }
 
     @Override
     public String toString() {
         return "BeerInfo{" +
-                "beerName='" + beerName + '\'' +
-                ", country='" + country + '\'' +
-                ", degree=" + degree +
-                ", img_url='" + img_url + '\'' +
-                ", category='" + category + '\'' +
-                ", evaluation='" + evaluation + '\'' +
-                ", descriptional='" + descriptional + '\'' +
+                "bid='" + bid + '\'' +
+                ", krname='" + krname + '\'' +
+                ", enname='" + enname + '\'' +
+                ", style='" + style + '\'' +
+                ", abv='" + abv + '\'' +
+                ", price='" + price + '\'' +
+                ", description='" + description + '\'' +
+                ", beerimg_url='" + beerimg_url + '\'' +
                 '}';
-    }
-
-    public String getBeerName() {
-        return beerName;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public double getDegree() {
-        return degree;
-    }
-
-    public String getImg_url() {
-        return img_url;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getEvaluation() {
-        return evaluation;
-    }
-
-    public String getDescriptional() {
-        return descriptional;
     }
 }
